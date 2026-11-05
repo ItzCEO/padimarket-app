@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PadiMarket - Offline</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f3f5f7;
+        color: #172033;
+        padding: 24px;
+      }
+
+      .card {
+        max-width: 360px;
+        background: #ffffff;
+        padding: 32px;
+        border-radius: 18px;
+        box-shadow: 0 18px 40px rgba(23, 32, 51, 0.08);
+      }
+
+      h1 {
+        font-size: 24px;
+        margin: 0 0 12px;
+      }
+
+      p {
+        margin: 0 0 20px;
+        color: #647182;
+      }
+
+      button {
+        padding: 12px 20px;
+        border: none;
+        border-radius: 10px;
+        background: #16a34a;
+        color: white;
+        font-weight: 700;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>You are offline</h1>
+      <p>PadiMarket needs an internet connection to load listings and updates.</p>
+      <button onclick="window.location.reload()">Try again</button>
+    </div>
+  </body>
+</html>
