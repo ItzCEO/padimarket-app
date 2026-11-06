@@ -3,7 +3,7 @@
 import { useCart } from "@/app/cart-context";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createSupabaseClient } from "@/lib/supabase-client";
 import { useTheme } from "../context/ThemeContext";
@@ -42,7 +42,7 @@ function makeSlug(title: string) {
     .replace(/^-+|-+$/g, "");
 }
 
-export default function Home() {
+function HomeContent() {
   const { cart } = useCart();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -2262,3 +2262,10 @@ const settingsStyles: { [key: string]: React.CSSProperties } = {
        fontSize: "12px",
   },
 };
+export default function Home() {
+  return (
+    <Suspense fallback={<div style={{ padding: 40 }}>Loading...</div>}>
+      <HomeContent />
+    </Suspense>
+  );
+}
