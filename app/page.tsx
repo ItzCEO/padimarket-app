@@ -195,10 +195,7 @@ useEffect(() => {
     status,
     boosted_until
   `)
-  .order("boosted_until", {
-    ascending: false,
-    nullsFirst: false,
-  })
+  
   .order("created_at", { ascending: false })
   .limit(12);
       
