@@ -6,7 +6,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 export default function BoostCheckoutSuccessPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const reference = searchParams.get("reference");
+  const reference = searchParams.get("reference") ?? "";
   const [message, setMessage] = useState("Confirming your payment...");
 
   useEffect(() => {

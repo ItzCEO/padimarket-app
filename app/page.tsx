@@ -22,9 +22,17 @@ type Product = {
   title: string;
   price: number;
   location: string | null;
-  condition: string | null;
-  category: string | null;
-  image_url: string | null;
+  condition?: string | null;
+  category?: string | null;
+  image_url?: string | null;
+  status?: string | null;
+  boosted_until?: string | null;
+  seller?: {
+    id?: string;
+    full_name?: string | null;
+    shop_name?: string | null;
+    avatar_url?: string | null;
+  } | null;
 };
 
 function makeSlug(title: string) {
@@ -123,14 +131,16 @@ const handleSearchSubmit = async (event: React.FormEvent) => {
   const { data, error } = await supabase
     .from("products")
     .select(`
-      id,
-      title,
-      price,
-      location,
-      image_url,
-      status,
-      boosted_until
-    `)
+  id,
+  title,
+  price,
+  location,
+  condition,
+  category,
+  image_url,
+  status,
+  boosted_until
+`)
     .ilike("title", `%${term}%`)
     .order("boosted_until", {
       ascending: false,
@@ -150,7 +160,7 @@ const handleSearchSubmit = async (event: React.FormEvent) => {
   }
 
 
-  setProducts(data || []);
+  setProducts((data as Product[]) || []);
   setHasMore(false);
 
 
@@ -173,10 +183,24 @@ useEffect(() => {
     const supabase = createSupabaseClient();
 
     const { data, error } = await supabase
-      .from("products")
-      .select(`
-        ...
-      `)
+  .from("products")
+  .select(`
+    id,
+    title,
+    price,
+    location,
+    condition,
+    category,
+    image_url,
+    status,
+    boosted_until
+  `)
+  .order("boosted_until", {
+    ascending: false,
+    nullsFirst: false,
+  })
+  .order("created_at", { ascending: false })
+  .limit(12);
       .order("boosted_until", {
         ascending: false,
         nullsFirst: false,
@@ -192,7 +216,7 @@ useEffect(() => {
         code: error.code,
       });
     } else if (data) {
-      setProducts(data);
+      setProducts(data as Product[]);
       setHasMore(data.length === 12);
     }
 

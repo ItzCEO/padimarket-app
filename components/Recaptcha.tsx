@@ -17,8 +17,8 @@ declare global {
           callback: (token: string) => void;
           "expired-callback": () => void;
         }
-      ) => void;
-      reset: () => void;
+      ) => number;
+      reset: (widgetId?: number) => void;
     };
     onRecaptchaLoad?: () => void;
   }
@@ -34,14 +34,11 @@ export default function Recaptcha({ siteKey, onChange }: RecaptchaProps) {
 
       if (widgetIdRef.current !== null) return;
 
-      widgetIdRef.current = window.grecaptcha.render(
-        containerRef.current,
-        {
-          sitekey: siteKey,
-          callback: (token: string) => onChange(token),
-          "expired-callback": () => onChange(null),
-        }
-      );
+      widgetIdRef.current = window.grecaptcha.render(containerRef.current, {
+        sitekey: siteKey,
+        callback: (token: string) => onChange(token),
+        "expired-callback": () => onChange(null),
+      });
     }
 
     if (window.grecaptcha?.render) {
