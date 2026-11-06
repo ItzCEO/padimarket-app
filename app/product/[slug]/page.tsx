@@ -419,8 +419,8 @@ setSimilarProducts(nearbyItems);
                   price: Number(product.price),
                   image_url: product.image_url,
                   stock: Number(product.quantity || 1),
-                seller_id: product.seller?.id || product.seller_id || "",
-seller_name: product.seller?.store_name || product.seller_name || null,
+seller_id: product.seller_id || "",
+seller_name: product.seller_name || null,
                 })
               }
             >
