@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
 import Link from "next/link";
@@ -19,7 +19,7 @@ type Product = {
   boosted_until: string | null;
 };
 
-export default function SearchPage() {
+function SearchPageContent() {
   const searchParams = useSearchParams();
   const query = searchParams.get("q") || "";
 
@@ -160,5 +160,12 @@ console.log("Search page loaded. Query:", query, "Products:", products.length);
         )}
       </div>
     </main>
+  );
+}
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div style={{ padding: 40 }}>Loading...</div>}>
+      <SearchPageContent />
+    </Suspense>
   );
 }
