@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
-export default function BoostCheckoutSuccessPage() {
+function BoostCheckoutSuccessContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const reference = searchParams.get("reference") ?? "";
@@ -56,5 +56,13 @@ export default function BoostCheckoutSuccessPage() {
         </button>
       </div>
     </div>
+  );
+}
+
+export default function BoostCheckoutSuccessPage() {
+  return (
+    <Suspense fallback={<div style={{ padding: 40 }}>Loading...</div>}>
+      <BoostCheckoutSuccessContent />
+    </Suspense>
   );
 }
