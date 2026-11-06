@@ -201,14 +201,8 @@ useEffect(() => {
   })
   .order("created_at", { ascending: false })
   .limit(12);
-      .order("boosted_until", {
-        ascending: false,
-        nullsFirst: false,
-      })
-      .order("created_at", { ascending: false })
-      .limit(12);
-
-    if (error) {
+      
+         if (error) {
       console.error("Load more products error:", {
         message: error.message,
         details: error.details,
